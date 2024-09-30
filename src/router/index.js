@@ -8,8 +8,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'requests',
-    component: () => import('@/views/RequestsView.vue'),
+    name: 'appeals',
+    component: () => import('@/views/AppealsView.vue'),
   },
   {
     path: '/login',
@@ -25,12 +25,16 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, _from, next) => {
-  console.log('isAuthorized', store.getters['auth/isAuthorized']);
-  if (to.name !== 'login' && !store.getters['auth/isAuthorized']) {
+  const toLogin = to.name === 'login';
+  const isAuthorized = store.getters['auth/isAuthorized'];
+  if (!toLogin && !isAuthorized) {
     next({name: 'login'});
-  } else {
-    next();
+    return;
   }
+  if (toLogin && isAuthorized) {
+    store.dispatch('auth/unauthorize');
+  }
+  next();
 });
 
 export default router;

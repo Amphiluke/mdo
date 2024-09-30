@@ -79,7 +79,7 @@ export default {
       this.isFailMessageVisible = false;
       try {
         await this.$store.dispatch('auth/authorize', {username: this.login, password: this.password});
-        this.$router.replace({name: 'requests'});
+        this.$router.replace({name: 'appeals'});
       } catch (e) {
         this.isFailMessageVisible = true;
       } finally {
@@ -136,6 +136,7 @@ export default {
 .login-button {
   font-weight: 400;
   margin-inline: auto;
+  min-width: 110px;
   text-transform: none;
 }
 

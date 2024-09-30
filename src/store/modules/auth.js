@@ -1,22 +1,27 @@
 import {authorize, unauthorize} from '@/api/auth.js';
+import {getCached, setCached} from '@/utils/local-cache.js';
 
 export default {
   namespaced: true,
 
   state: () => ({
-    userId: null,
+    userId: getCached('userId'),
+    apiKey: getCached('apiKey'),
     failMessage: '',
   }),
 
   getters: {
-    isAuthorized({userId}) {
-      return userId !== null;
+    isAuthorized({userId, apiKey}) {
+      return userId !== null && apiKey !== null;
     },
   },
 
   mutations: {
-    setUser(state, userId) {
-      state.userId = userId;
+    resetAuth(state, {userId, apiKey} = {}) {
+      state.userId = userId ?? null;
+      state.apiKey = apiKey ?? null;
+      setCached('userId', state.userId);
+      setCached('apiKey', state.apiKey);
     },
 
     setFailMessage(state, message) {
@@ -28,8 +33,8 @@ export default {
     async authorize({commit}, {username, password}) {
       try {
         commit('setFailMessage', '');
-        const {employee_id: userId} = await authorize(username, password);
-        commit('setUser', userId);
+        const {userId, apiKey} = await authorize(username, password);
+        commit('resetAuth', {userId, apiKey});
       } catch (e) {
         commit('setFailMessage', 'Неправильные данные');
         return Promise.reject();
@@ -38,7 +43,7 @@ export default {
 
     unauthorize({commit}) {
       unauthorize();
-      commit('setUser', null);
+      commit('resetAuth');
     },
   },
 };
