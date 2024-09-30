@@ -1,0 +1,16 @@
+@use "~vue-material/dist/vue-material.min";
+@use "~vue-material/dist/theme/default";
+
+@import "~vue-material/dist/theme/engine";
+
+@include md-register-theme("default", (
+  primary: #50b053,
+  accent: #5350b0,
+  text-primary-on-primary: #fff
+));
+
+@import "~vue-material/dist/components/MdButton/theme";
+@import "~vue-material/dist/components/MdContent/theme";
+@import "~vue-material/dist/components/MdField/theme";
+@import "~vue-material/dist/components/MdIcon/theme";
+@import "~vue-material/dist/components/MdSnackbar/theme";
