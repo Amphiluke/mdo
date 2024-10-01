@@ -101,11 +101,11 @@ export default {
   },
 
   computed: {
-    ...mapState('appeals', ['appeals', 'page', 'pageSize', 'pageCount', 'status']),
+    ...mapState('appeals', ['appeals', 'page', 'pageSize', 'count', 'status']),
 
     appealsConfig() {
       return {
-        mdCount: this.pageCount,
+        mdCount: this.count,
         mdPage: this.page,
         mdData: this.appeals,
       };
@@ -140,7 +140,7 @@ export default {
   }
 }
 
-$widths: ("number": 8.3%, "created": 12.4%, "address": 16.5%, "applicant": 16.5%, "due": 12.4%, "status": 12.4%);
+$widths: ("number": 8.3%, "created": 12.4%, "address": 16.5%, "applicant": 16.5%, "description": 21.5%, "due": 12.4%, "status": 12.4%);
 
 @each $id, $width in $widths {
   .appeals-#{$id} {

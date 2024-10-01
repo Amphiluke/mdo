@@ -1,4 +1,5 @@
-import {getAppeals, getPremises} from '@/api/appeals.js';
+import {getAppeals} from '@/api/appeals.js';
+import {getPremises} from '@/api/geo.js';
 
 export default {
   namespaced: true,
@@ -8,7 +9,7 @@ export default {
     premises: [],
     page: 1,
     pageSize: 10,
-    pageCount: 0,
+    count: 0,
     search: '',
     premiseId: '',
     failMessage: '',
@@ -29,9 +30,9 @@ export default {
       state.pageSize = pageSize;
     },
 
-    resetAppeals(state, {appeals, pageCount}) {
+    resetAppeals(state, {appeals, count}) {
       state.appeals = appeals;
-      state.pageCount = pageCount;
+      state.count = count;
     },
 
     resetPremises(state, premises) {
@@ -61,16 +62,16 @@ export default {
         if (premiseId !== undefined) {
           commit('resetPremiseId', premiseId);
         }
-        const {appeals, pageCount} = await getAppeals({
+        const {appeals, count} = await getAppeals({
           search: state.search || undefined,
           premiseId: state.premiseId || undefined,
           page: state.page,
           pageSize: state.pageSize,
         });
-        commit('resetAppeals', {appeals, pageCount});
+        commit('resetAppeals', {appeals, count});
       } catch (e) {
         commit('setFailMessage', 'Произошла непредвиденная ошибка');
-        commit('resetAppeals', {appeals: [], pageCount: 0});
+        commit('resetAppeals', {appeals: [], count: 0});
       } finally {
         commit('setStatus', 'idle');
       }

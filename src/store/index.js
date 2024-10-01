@@ -13,14 +13,3 @@ const store = new Vuex.Store({
 });
 
 export default store;
-
-if (store.getters['auth/isAuthorized']) {
-  store.dispatch('appeals/loadPremises');
-} else {
-  const unwatchAuth = store.watch((_state, getters) => getters['auth/isAuthorized'], (isAuthorized) => {
-    if (isAuthorized) {
-      store.dispatch('appeals/loadPremises');
-      unwatchAuth();
-    }
-  });
-}

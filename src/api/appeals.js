@@ -10,12 +10,7 @@ export async function getAppeals({search, premiseId, page = 1, pageSize = 10} = 
     },
   });
   return {
-    pageCount: data.pages,
+    count: data.count,
     appeals: data.results,
   };
-}
-
-export async function getPremises() {
-  const {data} = await axiosInstance.get('/geo/v2.0/user-premises/');
-  return data.results;
 }

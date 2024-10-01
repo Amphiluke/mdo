@@ -32,5 +32,9 @@ export default {
       },
     },
   },
+
+  created() {
+    this.$store.dispatch('appeals/loadPremises');
+  }
 };
 </script>
