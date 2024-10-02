@@ -11,6 +11,7 @@
       <md-table-row
         slot="md-table-row"
         slot-scope="{item}"
+        @click="$store.commit('appeals/setActiveAppeal', item.id)"
       >
         <md-table-cell
           md-label="№" 

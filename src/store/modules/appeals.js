@@ -1,11 +1,14 @@
 import {getAppeals} from '@/api/appeals.js';
 import {getPremises} from '@/api/geo.js';
 
+const STUB_APPEAL_ID = Symbol('Stub id for a new appeal');
+
 export default {
   namespaced: true,
 
   state: () => ({
     appeals: [],
+    activeAppealId: null,
     premises: [],
     page: 1,
     pageSize: 10,
@@ -39,12 +42,22 @@ export default {
       state.premises = premises;
     },
 
+    setActiveAppeal(state, id = STUB_APPEAL_ID) {
+      state.activeAppealId = id;
+    },
+
     setFailMessage(state, message) {
       state.failMessage = message;
     },
 
     setStatus(state, status) {
       state.status = status;
+    },
+  },
+
+  getters: {
+    activeAppeal(state) {
+      return state.appeals.find(({id}) => id === state.activeAppealId);
     },
   },
 

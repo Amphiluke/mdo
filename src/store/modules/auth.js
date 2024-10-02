@@ -1,4 +1,5 @@
 import {authorize, unauthorize} from '@/api/auth.js';
+import {extractAPIError} from '@/api';
 import {getCached, setCached} from '@/utils/local-cache.js';
 
 export default {
@@ -36,7 +37,7 @@ export default {
         const {userId, apiKey} = await authorize(username, password);
         commit('resetAuth', {userId, apiKey});
       } catch (e) {
-        commit('setFailMessage', 'Неправильные данные');
+        commit('setFailMessage', extractAPIError(e.response || {}, 'Неправильные данные'));
         return Promise.reject();
       }
     },

@@ -45,7 +45,7 @@
     <md-snackbar
       md-position="center"
       :md-active.sync="isFailMessageVisible"
-      class="login-snackbar"
+      class="error-snackbar"
     >
       {{ $store.state.auth.failMessage }}
     </md-snackbar>
@@ -138,9 +138,5 @@ export default {
   margin-inline: auto;
   min-width: 110px;
   text-transform: none;
-}
-
-:global(.md-snackbar.md-theme-default.login-snackbar) {
-  background: #a00;
 }
 </style>

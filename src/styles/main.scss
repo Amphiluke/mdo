@@ -1,5 +1,6 @@
 @use "~vue-material/dist/vue-material.min";
 @use "~vue-material/dist/theme/default";
+@use "./datepicker";
 
 @import "~vue-material/dist/theme/engine";
 
@@ -21,3 +22,30 @@
 @import "~vue-material/dist/components/MdMenu/theme";
 @import "~vue-material/dist/components/MdList/theme";
 @import "~vue-material/dist/components/MdProgress/theme";
+@import "~vue-material/dist/components/MdDialog/theme";
+@import "~vue-material/dist/components/MdAutocomplete/theme";
+
+
+// Global redefinitions
+
+.md-field.md-theme-default {
+  &::after {
+    background: #ccc;
+  }
+
+  label {
+    color: #999;
+  }
+}
+
+.md-input {
+  max-width: 100%;
+}
+
+.md-menu-content {
+  z-index: 150;
+}
+
+.md-snackbar.md-theme-default.error-snackbar {
+  background: #a00;
+}

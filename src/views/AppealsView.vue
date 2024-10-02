@@ -5,22 +5,30 @@
     </h1>
 
     <div class="appeals-widget">
-      <md-button class="appeals-create md-dense md-raised md-primary">
+      <md-button
+        class="appeals-create md-dense md-raised md-primary"
+        @click="$store.commit('appeals/setActiveAppeal')"
+      >
         Создать
       </md-button>
+
       <AppealsTable />
+
+      <AppealsEditForm />
     </div>
   </div>
 </template>
 
 <script>
 import AppealsTable from '@/components/AppealsTable.vue';
+import AppealsEditForm from '@/components/AppealsEditForm.vue';
 
 export default {
   name: 'AppealsView',
 
   components: {
     AppealsTable,
+    AppealsEditForm,
   },
 }
 </script>
