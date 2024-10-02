@@ -1,11 +1,3 @@
 module.exports = {
-  css: {
-    loaderOptions: {
-      css: {
-        url: {
-          filter: url => !url.startsWith('/'),
-        }
-      },
-    },
-  },
+  publicPath: process.env.NODE_ENV === 'production' ? '/mdo/' : '/',
 };
