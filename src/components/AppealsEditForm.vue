@@ -105,7 +105,7 @@
       <div class="md-layout-item md-size-100 end-aligned-item">
         <md-button
           class="md-raised md-primary appeal-save"
-          :disabled="!isFormValid"
+          :disabled="!isFormValid || isPending"
           type="submit"
         >
           {{ appeal ? 'Сохранить' : 'Создать' }}
@@ -150,6 +150,8 @@ const getInitialData = () => ({
 
   isFailMessageVisible: false,
   failMessage: null,
+
+  isPending: false,
 });
 
 export default {
@@ -236,6 +238,7 @@ export default {
         description: this.description,
         dueDate: this.dueDate,
       };
+      this.isPending = true;
       const promise = this.appeal ? updateAppeal(this.appeal.id, payload) : createAppeal(payload);
       promise
         .then(() => {
@@ -245,6 +248,9 @@ export default {
         .catch((reason) => {
           this.failMessage = extractAPIError(reason.response);
           this.isFailMessageVisible = true;
+        })
+        .finally(() => {
+          this.isPending = false;
         });
     },
 
