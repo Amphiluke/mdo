@@ -6,7 +6,6 @@ export const axiosInstance = axios.create({
 
 export function extractAPIError(response, defaultMessage = 'Произошла непредвиденная ошибка') {
   let message = '';
-  console.log(response.data)
   if (response.data?.data) {
     message = Object.values(response.data.data).reduce((memo, msg) => {
       if (Array.isArray(msg)) {
